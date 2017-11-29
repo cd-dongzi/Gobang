@@ -68,10 +68,10 @@ Gobang.prototype.drawChess = function(x, y, player){
 
 
 	var grd = this.ctx.createRadialGradient(x + 2, y - 2, 13 , x + 2, y - 2, 0);
-	if (player) { 
+	if (player) { //我 == 黑棋 
 		grd.addColorStop(0, '#0a0a0a');
 		grd.addColorStop(1, '#636766');
-	}else{ 
+	}else{  //电脑 == 白棋
 		grd.addColorStop(0, '#d1d1d1');
 		grd.addColorStop(1, '#f9f9f9');
 	}
@@ -398,6 +398,8 @@ Gobang.prototype.computerDropChess = function(){
 		this.player = true;
 	}
 }
+
+//检查落子情况
 Gobang.prototype.checkChess = function(x, y){
 	//画棋
 	this.drawChess(x, y, this.player);
