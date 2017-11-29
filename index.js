@@ -17,11 +17,11 @@ Gobang.prototype.init = function(opts) {
 	//棋盘初始化 
 	this.boardInit();
 
-	//算法初始化
-	this.algorithmInit();
-
 	// 鼠标移动聚焦功能实现
 	this.mouseMove();
+
+	//算法初始化
+	this.algorithmInit();
 
 	//落子功能实现
 	this.dorpChess();
@@ -31,7 +31,7 @@ Gobang.prototype.init = function(opts) {
 //生成canvas
 Gobang.prototype.createCanvas = function(opts) {
 	var opts = opts || {};
-	if (opts.width && opts.width%30 !== 0) throw new RangeError('必须是30的倍数');
+	if (opts.width && opts.width%30 !== 0) throw new RangeError(opts.width+'不是30的倍数');
 	this.col = (opts.width && opts.width/30) || 15; // 棋盘列
 
 	var oCanvas = document.createElement('canvas');
@@ -84,7 +84,7 @@ Gobang.prototype.drawChess = function(x, y, player){
 Gobang.prototype.mouseMove = function(){
 	var that = this;
 	this.canvas.addEventListener('mousemove', function (e) {
-		that.ctx.clearRect(0, 0, 450, 450);
+		that.ctx.clearRect(0, 0, that.col*30, that.col*30);
 		var x = Math.floor((e.offsetX)/30),
 			y = Math.floor((e.offsetY)/30);
 
@@ -165,10 +165,11 @@ Gobang.prototype.computedWins = function(){
 					[0,5]
 				以此类推一列最多也就11种赢法， 所有纵向x有15列  每列最多11种， 所有纵向总共15 * 11种
 			*/
-			//所以 以下for循环给每种赢法的位置信息储存起来
+			//以下for循环给每种赢法的位置信息储存起来
 			for (var k = 0; k < 5; k ++) {
 				this.wins[x][y+k][this.winsCount] = true;
 				/*
+					位置信息
 					第一种赢法的时候：
 						this.wins =	[
 										[
@@ -184,7 +185,7 @@ Gobang.prototype.computedWins = function(){
 									]
 
 						虽然这是一个三维数组, 我们把它拆分下就好理解了
-						相当于  this.wins[0][0][1], this.wins[0][1][1], this.wins[0][1][1], this.wins[0][2][1], this.wins[0][3][1]
+						相当于  this.wins[0][0][1], this.wins[0][1][1], this.wins[0][2][1], this.wins[0][3][1], this.wins[0][4][1]
 						
 						因为对象可以这样取值：
 							var obj = {
@@ -193,16 +194,16 @@ Gobang.prototype.computedWins = function(){
 							}
 							obj['a'] === obj.a
 
-						所有也就相当于 this.wins[0][0].1, this.wins[0][1].1, this.wins[0][1].1, this.wins[0][2].1, this.wins[0][3].1 
+						所有也就相当于 this.wins[0][0].1, this.wins[0][1].1, this.wins[0][2].1, this.wins[0][3].1, this.wins[0][4].1 
 
 						虽然数组不能这么取值，可以这么理解
 
-						所以  	this.wins[0][0].1  就可以理解为  在 this.wins[0][0]上有第一种赢法
-								this.wins[0][1].1  就可以理解为  在 this.wins[0][1]上有第一种赢法
+						所以  	this.wins[0][0].1  就可以理解为  在 x=0, y=0, 上有第一种赢法
+								this.wins[0][1].1  就可以理解为  在 x=0, y=1, 上有第一种赢法
 								......
 
-						以上this.wins[0][0],this.wins[0][1]可以看作是x和y坐标 this.wins[x][y]
-						如果只算 x, y 坐标，其实它的坐标就是: [0,0] [0,1] [0,2] [0,3] [0,4]
+						以上this.wins[0][0],this.wins[0][1]...可以看作是 this.wins[x][y]
+						所以第一种赢法的坐标就是: [0,0] [0,1] [0,2] [0,3] [0,4] 
 				*/
 			}
 		}
