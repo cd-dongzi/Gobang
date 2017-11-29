@@ -11,37 +11,20 @@
 		}
 		canvas {
 			display: block;
-			/*margin: 50px auto;*/
 			box-shadow: 0px 0px 10px #ccc;
 			background: url(./bg.png) no-repeat center center;
 			background-size: cover;
-			/*display: none;*/
 		}
 	</style>
 </head>
 <body>
 	<div class="box"></div>
-	<!-- <canvas width="450" height="450"></canvas> -->
 </body>
 </html>
 <script type="text/javascript" src="./index.js"></script>
 <script>
-	// var arr = [[false,false],[true,false],[false,false]];
-	// // arr.map( function(v) {
-	// // 	// console.log(a, b)
-		
-	// // })
-	// back(arr)
-	// function back(arr) {
-	// 	arr.map(function(v, i) {
-	// 		// return 
-	// 		// console.log(v, i)
-	// 		return {
-	// 			x: i,
-	// 			y: v.map(function(v1, j) {
-	// 				return v1 ? j
-	// 			})
-	// 		}
-	// 	})
-	// }
+	var gobang = new Gobang();
+	gobang.init({
+		container: '.box'
+	})
 </script>

@@ -430,9 +430,3 @@ Gobang.prototype.currWinChesses = function(x, y, player){
 		}
 	}
 }
-
-
-var gobang = new Gobang();
-gobang.init({
-	container: '.box'
-})
