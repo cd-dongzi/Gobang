@@ -40,11 +40,11 @@ Gobang.prototype.init = function(opts) {
 //生成canvas
 Gobang.prototype.createCanvas = function(opts) {
     var opts = opts || {};
-    if (opts.width && opts.width%30 !== 0) throw new RangeError(opts.width+'不是30的倍数');
-    this.col = (opts.width && opts.width/30) || 15; // 棋盘列
+    if (!opts.size || opts.size < 5) throw new RangeError('棋盘尺寸至少为5');
+    this.col = opts.size;
 
     var oCanvas = document.createElement('canvas');
-    oCanvas.width = oCanvas.height = opts.width || 450;
+    oCanvas.width = oCanvas.height = this.col * 30;
     this.canvas = oCanvas;
     document.querySelector(opts.container || 'body').appendChild(this.canvas);
     this.ctx = oCanvas.getContext('2d');

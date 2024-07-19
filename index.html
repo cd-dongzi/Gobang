@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>JS AI五子棋</title>
-	<style type="text/css">
-		.box {
-			width: 450px;
-			height: 450px;
-			margin: 50px auto;
-		}
-		canvas {
-			display: block;
-			box-shadow: 0px 0px 10px #ccc;
-			background: url(./bg.png) no-repeat center center;
-			background-size: cover;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <title>JS AI五子棋</title>
+    <style type="text/css">
+        .box {
+            margin: 50px auto;
+        }
+        canvas {
+            display: block;
+            box-shadow: 0px 0px 10px #ccc;
+            background: url(./bg.png) no-repeat center center;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
-	<div class="box"></div>
+    <div class="box"></div>
 </body>
 </html>
 <script type="text/javascript" src="./index.js"></script>
 <script>
-
-	/*
-	 	* @param opts: {
-			width: 默认450
-			container: 父容器
-	 	} 
-	*/
-	var gobang = new Gobang();
-	gobang.init({
-		container: '.box'
-	})
+    /*
+        * @param opts: {
+            size: 棋盘尺寸
+            container: 父容器
+        }
+    */
+    var gobang = new Gobang();
+    var size = prompt("请输入棋盘尺寸 (例如 12 表示 12x12 的棋盘)：", 15);
+    size = parseInt(size);
+    if (isNaN(size) || size < 5) {
+        alert("棋盘尺寸至少为5");
+    } else {
+        gobang.init({
+            container: '.box',
+            size: size
+        });
+        document.querySelector('.box').style.width = size * 30 + 'px';
+        document.querySelector('.box').style.height = size * 30 + 'px';
+    }
 </script>
